@@ -21,19 +21,16 @@ export default function Gps() {
     setIsGpsEnabled((prev) => !prev);
   };
 
-  const retornarLocalizacao = () => {
-    const endereco = {
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-    };
-    return endereco;
-  };
-
   useEffect(() => {
     if (isGpsEnabled) {
       const getGpsLocation = async () => {
         const currentLocation = await Location.getCurrentPositionAsync({});
         setLocation(currentLocation);
+        const endereco = {
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        };
+        localStorage.setItem('endereco',endereco)
       };
       getGpsLocation();
     } else {

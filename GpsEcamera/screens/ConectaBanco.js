@@ -30,7 +30,8 @@ export default function ConectaBanco() {
       const statement = await db.prepareAsync(
         'INSERT INTO fotosElocalizacao (imagem, localizacao) VALUES ($imagem, $localizacao)'
       );
-      
+      const loc = localStorage.getItem('endereco')
+      setLocalizacao(loc)
       try {
         if (imagem != null && localizacao != null){
           let result = await statement.executeAsync({ $imagem: imagem, $localizacao: localizacao });
