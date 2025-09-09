@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Switch, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Switch, TouchableOpacity, FlatList } from "react-native";
 import * as SQLite from 'expo-sqlite';
 import Gps from './Gps';
 import {
