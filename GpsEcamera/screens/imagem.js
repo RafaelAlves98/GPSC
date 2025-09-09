@@ -3,7 +3,6 @@ import { StyleSheet, View, Button, Image, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Location from "expo-location";
 
 export default function Imagem() {
   const [fotoUri, setFotoUri] = useState(null);
