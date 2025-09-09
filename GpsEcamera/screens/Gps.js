@@ -51,11 +51,7 @@ export default function Gps() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: "#f5f5f5",
-  },
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding:8 },
   button: {
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
