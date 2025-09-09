@@ -32,7 +32,7 @@ export default function ConectaBanco() {
             return;
         }
 
-        const { base64, localizacao } = JSON.parse(ultimaFoto);
+        const base64 = JSON.parse(ultimaFoto);
 
         const statement = await db.prepareAsync(
             'INSERT INTO fotosElocalizacao (imagem, localizacao) VALUES ($imagem, $localizacao)'
