@@ -40,11 +40,13 @@ export default function Gps() {
   }, [isGpsEnabled]);
 
   return (
+    <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <TouchableOpacity onPress={() => toggleGps()}>
           <Text>Permitir pegar a localização!</Text>
         </TouchableOpacity>
       </View>
+    </SafeAreaView>
   );
 }
 

@@ -45,7 +45,6 @@ export default function ConectaBanco() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View component={Gps}/>
       <View style={styles.container}>
         <TouchableOpacity onPress={() => salvar()}>
             <Text>Salvar!</Text>
