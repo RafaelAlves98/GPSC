@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Switch, StyleSheet } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import Gps from './Gps';
+import {AsyncStorage} from 'react-native';
 
 export default function ConectaBanco() {
     const [db,setDb] = useState(null);
@@ -30,7 +31,7 @@ export default function ConectaBanco() {
       const statement = await db.prepareAsync(
         'INSERT INTO fotosElocalizacao (imagem, localizacao) VALUES ($imagem, $localizacao)'
       );
-      const loc = localStorage.getItem('endereco')
+      const loc = await AsyncStorage.getItem('endereco')
       setLocalizacao(loc)
       try {
         if (imagem != null && localizacao != null){
