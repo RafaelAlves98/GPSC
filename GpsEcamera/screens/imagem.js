@@ -40,11 +40,8 @@ export default function Imagem() {
   const salvarFoto = async (uri) => {
     try {
       const base64 = await FileSystem.readAsStringAsync(uri, { encoding: "base64" });
-      const localizacao = await pegarLocalizacao();
-      if (!localizacao) return;
 
-      // Salva temporariamente no AsyncStorage para o ConectaBanco usar
-      await AsyncStorage.setItem("ultimaFoto", JSON.stringify({ base64, localizacao }));
+      await AsyncStorage.setItem("ultimaFoto", JSON.stringify(base64));
       console.log("Foto e localização salvos no AsyncStorage");
     } catch (err) {
       console.log("Erro ao salvar foto:", err);
