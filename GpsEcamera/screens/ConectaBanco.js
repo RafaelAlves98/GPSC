@@ -51,10 +51,10 @@ export default function ConectaBanco() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => salvar()}>
+        <TouchableOpacity style={styles.button} onPress={() => salvar()}>
             <Text>Salvar!</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => pegarTudo()}>
+        <TouchableOpacity style={styles.button} onPress={() => pegarTudo()}>
             <Text>Ver o que está salvo!</Text>
         </TouchableOpacity>
         <FlatList
@@ -69,4 +69,9 @@ export default function ConectaBanco() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+  },
 });

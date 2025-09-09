@@ -42,7 +42,7 @@ export default function Gps() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => toggleGps()}>
+        <TouchableOpacity style={styles.button} onPress={() => toggleGps()}>
           <Text>Permitir pegar a localização!</Text>
         </TouchableOpacity>
       </View>
@@ -55,5 +55,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: "#f5f5f5",
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
   },
 });
