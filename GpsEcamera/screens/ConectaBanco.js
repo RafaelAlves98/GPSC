@@ -13,7 +13,7 @@ export default function ConectaBanco() {
     CREATE TABLE IF NOT EXISTS fotosElocalizacao (id INT AUTO_INCREMENT PRIMARY KEY, imagem LONGBLOB NOT NULL, localizacao TEXT NOT NULL);
     `);
 
-    const pegarTudo = () => {
+    const pegarTudo = async () => {
       const allRows = await db.getAllAsync('SELECT * FROM fotosElocalizacao');
       for (const row of allRows) {
         const id = row.id
@@ -24,7 +24,7 @@ export default function ConectaBanco() {
       }
     };
 
-    const salvar = () => {
+    const salvar = async () => {
       const statement = await db.prepareAsync(
         'INSERT INTO fotosElocalizacao (imagem, localizacao) VALUES ($imagem, $localizacao)'
       );
