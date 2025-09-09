@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, Switch, StyleSheet } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import Gps from './Gps';
+import {
+  SafeAreaProvider,
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ConectaBanco() {
