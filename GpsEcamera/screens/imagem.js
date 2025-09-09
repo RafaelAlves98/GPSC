@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Button, Image, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
@@ -40,9 +40,8 @@ export default function Imagem() {
   const salvarFoto = async (uri) => {
     try {
       const base64 = await FileSystem.readAsStringAsync(uri, { encoding: "base64" });
-
-      await AsyncStorage.setItem("ultimaFoto", JSON.stringify(base64));
-      console.log("Foto e localização salvos no AsyncStorage");
+      await AsyncStorage.setItem("ultimaFoto", base64); // salva só o base64
+      console.log("Foto salva no AsyncStorage");
     } catch (err) {
       console.log("Erro ao salvar foto:", err);
     }
