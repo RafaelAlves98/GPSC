@@ -6,8 +6,8 @@ import ConectaBanco from '../screens/ConectaBanco';
 export default function App() {
   return (
     <View style={styles.container}>
-      <View component={Gps}></View>
-      <View component={ConectaBanco}></View>
+      <Gps/>
+      <ConectaBanco/>
     </View>
   );
 }

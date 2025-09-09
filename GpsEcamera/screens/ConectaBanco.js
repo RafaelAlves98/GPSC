@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Switch, StyleSheet } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import Gps from './Gps';
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ConectaBanco() {
     const [db,setDb] = useState(null);
@@ -54,6 +54,7 @@ export default function ConectaBanco() {
         </TouchableOpacity>
         <FlatList
           data={dados} 
+          keyExtractor={(item) => item.id.toString()}  
           renderItem={({ item }) => <Text>Id: {item.id}, localizacao: {item.localizacao}, imagem: {item.imagem}</Text>} 
         />
       </View>

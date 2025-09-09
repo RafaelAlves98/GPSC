@@ -6,7 +6,7 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import * as Location from "expo-location";
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Gps() {
   const [isGpsEnabled, setIsGpsEnabled] = useState(false);
@@ -28,8 +28,8 @@ export default function Gps() {
         const currentLocation = await Location.getCurrentPositionAsync({});
         setLocation(currentLocation);
         const endereco = {
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
+          latitude: currentLocation.coords.latitude,
+          longitude: currentLocation.coords.longitude,
         };
         await AsyncStorage.setItem('endereco',JSON.stringify(endereco))
       };
