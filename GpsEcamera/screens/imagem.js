@@ -35,6 +35,9 @@ export default function Imagem() {
       const location = await getPhotoLocation(selectedAsset.id);
       const lat = location.latitude
       const long = location.longitude 
+      const uri = result.assets[0].uri;
+      setFotoUri(uri);
+      await salvarFoto(uri);
       if (location) {
         await AsyncStorage.setItem('latitudeFoto',JSON.stringify(lat))
         await AsyncStorage.setItem('longitudeFoto',JSON.stringify(long))
