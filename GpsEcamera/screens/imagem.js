@@ -32,16 +32,20 @@ export default function Imagem() {
 
     const result = await ImagePicker.launchImageLibraryAsync({ quality: 0.7 });
     if (!result.canceled) {
+      const uri = result.assets[0].uri;
       setFotoUri(uri);
       await salvarFoto(uri);
+
       const selectedAsset = result.assets[0];
-      const location = await getPhotoLocation(selectedAsset.id);
-      const lat = location.latitude
-      const long = location.longitude 
-      const uri = result.assets[0].uri;
-      if (location) {
-        await AsyncStorage.setItem('latitudeFoto',JSON.stringify(lat))
-        await AsyncStorage.setItem('longitudeFoto',JSON.stringify(long))
+      const assetInfo = await MediaLibrary.getAssetInfoAsync(selectedAsset.assetId || selectedAsset.id);
+
+      if (assetInfo && assetInfo.location) {
+        const { latitude, longitude } = assetInfo.location;
+        await AsyncStorage.setItem("latitudeFoto", JSON.stringify(latitude));
+        await AsyncStorage.setItem("longitudeFoto", JSON.stringify(longitude));
+        console.log("Localização salva:", latitude, longitude);
+      } else {
+        console.log("A foto não possui dados de localização.");
       }
     }
   };
@@ -49,7 +53,7 @@ export default function Imagem() {
   const salvarFoto = async (uri) => {
     try {
       const base64 = await FileSystem.readAsStringAsync(uri, { encoding: "base64" });
-      await AsyncStorage.setItem("ultimaFoto", base64); 
+      await AsyncStorage.setItem("ultimaFoto", base64);
     } catch (err) {
       console.log("Erro ao salvar foto:", err);
     }
@@ -63,7 +67,7 @@ export default function Imagem() {
       {fotoUri && <Image source={{ uri: fotoUri }} style={styles.imagem} />}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: "center", alignItems: "center", padding: 8 },
