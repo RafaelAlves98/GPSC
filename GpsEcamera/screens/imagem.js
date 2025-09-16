@@ -39,6 +39,7 @@ export default function Imagem() {
         await AsyncStorage.setItem('latitudeFoto',JSON.stringify(lat))
         await AsyncStorage.setItem('longitudeFoto',JSON.stringify(long))
       }
+    }
   };
 
   const salvarFoto = async (uri) => {
@@ -58,7 +59,7 @@ export default function Imagem() {
       {fotoUri && <Image source={{ uri: fotoUri }} style={styles.imagem} />}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: "center", alignItems: "center", padding: 8 },

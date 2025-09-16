@@ -26,15 +26,15 @@ export default function ConectaBanco() {
         if (!db) return;
 
         const base64Foto = await AsyncStorage.getItem('ultimaFoto');
-        const latitude = await AsyncStorage.getItem('latitudeFoto');
-        const longitude = await AsyncStorage.getItem('longitudeFoto');
+        let latitude = await AsyncStorage.getItem('latitudeFoto');
+        let longitude = await AsyncStorage.getItem('longitudeFoto');
 
         if (!latitude){
-            const latitude = await AsyncStorage.getItem('latitudeAtual');
+            latitude = await AsyncStorage.getItem('latitudeAtual');
         }
 
         if (!longitude){
-            const longitude = await AsyncStorage.getItem('longitudeAtual');
+            longitude = await AsyncStorage.getItem('longitudeAtual');
         }
 
         if (!base64Foto) { alert("Nenhuma foto para salvar!"); return; }
