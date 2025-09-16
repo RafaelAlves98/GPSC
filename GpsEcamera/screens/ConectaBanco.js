@@ -16,7 +16,8 @@ export default function ConectaBanco() {
             CREATE TABLE IF NOT EXISTS fotosElocalizacao (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 imagem BLOB NOT NULL,
-                localizacao TEXT NOT NULL
+                latitude TEXT NOT NULL,
+                longitude TEXT NOT NULL
             );
         `);
     };
@@ -24,18 +25,28 @@ export default function ConectaBanco() {
     const salvar = async () => {
         if (!db) return;
 
-        const base64 = await AsyncStorage.getItem('ultimaFoto');
-        const localizacao = await AsyncStorage.getItem('endereco');
+        const base64Foto = await AsyncStorage.getItem('ultimaFoto');
+        const latitude = await AsyncStorage.getItem('latitudeFoto');
+        const longitude = await AsyncStorage.getItem('longitudeFoto');
 
-        if (!base64) { alert("Nenhuma foto para salvar!"); return; }
-        if (!localizacao) { alert("Localização não encontrada!"); return; }
+        if (!latitude){
+            const latitude = await AsyncStorage.getItem('latitudeAtual');
+        }
+
+        if (!longitude){
+            const longitude = await AsyncStorage.getItem('longitudeAtual');
+        }
+
+        if (!base64Foto) { alert("Nenhuma foto para salvar!"); return; }
+        if (!latitude) { alert("Latitude não encontrada!"); return; }
+        if (!longitude) { alert("Longitude não encontrada!"); return;}
 
         const statement = await db.prepareAsync(
-            'INSERT INTO fotosElocalizacao (imagem, localizacao) VALUES ($imagem, $localizacao)'
+            'INSERT INTO fotosElocalizacao (imagem, latitude, longitude) VALUES ($imagem, $latitude, $longitude)'
         );
 
         try {
-            await statement.executeAsync({ $imagem: base64, $localizacao: localizacao });
+            await statement.executeAsync({ $imagem: base64Foto, $latitude: latitude, $longitude: longitude });
             alert("Foto e localização salvas no banco!");
         } finally {
             await statement.finalizeAsync();
@@ -64,7 +75,9 @@ export default function ConectaBanco() {
                 renderItem={({ item }) => (
                     <View style={{ marginBottom: 10, alignItems: 'center' }}>
                         <Text>Id: {item.id}</Text>
-                        <Text>Localização: {item.localizacao}</Text>
+                        <Text>Localização: </Text>
+                        <Text>Latitude: {item.latitude}</Text>
+                        <Text>Longitude: {item.longitude}</Text>
                         <Image
                             source={{ uri: `data:image/jpeg;base64,${item.imagem}` }}
                             style={{ width: 100, height: 100, borderRadius: 8 }}

@@ -31,17 +31,20 @@ export default function Imagem() {
 
     const result = await ImagePicker.launchImageLibraryAsync({ quality: 0.7 });
     if (!result.canceled) {
-      const uri = result.assets[0].uri;
-      setFotoUri(uri);
-      await salvarFoto(uri);
-    }
+      const selectedAsset = result.assets[0];
+      const location = await getPhotoLocation(selectedAsset.id);
+      const lat = location.latitude
+      const long = location.longitude 
+      if (location) {
+        await AsyncStorage.setItem('latitudeFoto',JSON.stringify(lat))
+        await AsyncStorage.setItem('longitudeFoto',JSON.stringify(long))
+      }
   };
 
   const salvarFoto = async (uri) => {
     try {
       const base64 = await FileSystem.readAsStringAsync(uri, { encoding: "base64" });
-      await AsyncStorage.setItem("ultimaFoto", base64); // salva só o base64
-      console.log("Foto salva no AsyncStorage");
+      await AsyncStorage.setItem("ultimaFoto", base64); 
     } catch (err) {
       console.log("Erro ao salvar foto:", err);
     }

@@ -12,6 +12,10 @@ export default function Gps() {
   const [isGpsEnabled, setIsGpsEnabled] = useState(false);
   const [location, setLocation] = useState(null);
 
+  useEffect(() => { 
+    toggleGps(); 
+  }, []);
+
   const toggleGps = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -27,11 +31,12 @@ export default function Gps() {
       const getGpsLocation = async () => {
         const currentLocation = await Location.getCurrentPositionAsync({});
         setLocation(currentLocation);
-        const endereco = {
-          latitude: currentLocation.coords.latitude,
-          longitude: currentLocation.coords.longitude,
-        };
-        await AsyncStorage.setItem('endereco',JSON.stringify(endereco))
+        const latitude = currentLocation.coords.latitude
+        const longitude = currentLocation.coords.longitude
+        console.log(latitude)
+        console.log(longitude)
+        await AsyncStorage.setItem('latitudeAtual',JSON.stringify(latitude))
+        await AsyncStorage.setItem('longitudeAtual',JSON.stringify(longitude))
       };
       getGpsLocation();
     } else {
@@ -40,21 +45,9 @@ export default function Gps() {
   }, [isGpsEnabled]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.button} onPress={() => toggleGps()}>
-          <Text>Permitir pegar a localização!</Text>
-        </TouchableOpacity>
-      </View>
+    <SafeAreaView>
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding:8 },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
-  },
-});
+
