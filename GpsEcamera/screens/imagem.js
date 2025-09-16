@@ -3,6 +3,7 @@ import { StyleSheet, View, Button, Image, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as MediaLibrary from "expo-media-library";
 
 export default function Imagem() {
   const [fotoUri, setFotoUri] = useState(null);
@@ -31,13 +32,13 @@ export default function Imagem() {
 
     const result = await ImagePicker.launchImageLibraryAsync({ quality: 0.7 });
     if (!result.canceled) {
+      setFotoUri(uri);
+      await salvarFoto(uri);
       const selectedAsset = result.assets[0];
       const location = await getPhotoLocation(selectedAsset.id);
       const lat = location.latitude
       const long = location.longitude 
       const uri = result.assets[0].uri;
-      setFotoUri(uri);
-      await salvarFoto(uri);
       if (location) {
         await AsyncStorage.setItem('latitudeFoto',JSON.stringify(lat))
         await AsyncStorage.setItem('longitudeFoto',JSON.stringify(long))
